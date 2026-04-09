@@ -8,56 +8,63 @@
     body { font-family: -apple-system, sans-serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.7; color: #111; background: #f7f7f8; }
     .card { background: white; padding: 32px; border-radius: 20px; box-shadow: 0 4px 24px rgba(0,0,0,.06); }
     h1, h2 { color: #111; }
+    ul { padding-left: 1.25rem; }
+    li { margin-bottom: 0.5rem; }
   </style>
 </head>
 <body>
   <div class="card">
     <h1>Privacy Policy</h1>
-    <p><strong>Last updated:</strong> February 9, 2026</p>
+    <p><strong>Last updated:</strong> April 9, 2026</p>
 
-    <p>Limitless (“we”, “us”, or “our”) respects your privacy. This Privacy Policy explains how the Limitless app handles your information.</p>
+    <p>QuantView (“we”, “us”, or “our”) operates Limitless. This Privacy Policy explains how the Limitless app handles your information.</p>
 
-    <h2>1. Data We Process</h2>
-    <p>Limitless may process the following data on your device:</p>
+    <h2>1. Data we process</h2>
+    <p>Limitless may process the following:</p>
     <ul>
-      <li>Name and age you enter in the app</li>
-      <li>Face scan images and facial analysis results</li>
-      <li>Selected apps to block and screen time settings</li>
-      <li>Exercise completion, unlock tasks, and streak data</li>
-      <li>Subscription status</li>
+      <li><strong>Profile:</strong> Name and age you enter in the app (stored on your device only).</li>
+      <li><strong>Face scan:</strong> A selfie and derived analysis scores. For the full AI report, a compressed image may be sent over the network to infrastructure we operate. Our server uses it only to return analysis to the app and does not keep your photo on disk after the request. Numeric results may be saved locally on your device. An optional copy of your last scan image may be stored only inside the app’s sandbox so you can see it in the UI.</li>
+      <li><strong>Exercise verification:</strong> Live camera frames for rep counting and task verification — processed on your device only (see Section 3).</li>
+      <li><strong>Screen Time / blocking:</strong> Which apps you choose to block and related settings, via Apple’s Screen Time (Family Controls), under iOS control.</li>
+      <li><strong>Tasks and streaks:</strong> Exercise completion, unlock tasks, and streak data (stored locally).</li>
+      <li><strong>Subscriptions:</strong> Status via Apple and, where applicable, RevenueCat — not your card number.</li>
     </ul>
 
-    <h2>2. On-Device Processing</h2>
-    <p>Face scans and exercise verification are processed locally on your device using Apple frameworks such as Vision and AVFoundation. We do not upload your photos or face scan data to our servers.</p>
+    <h2>2. On-device vs. network (face scan)</h2>
+    <p><strong>Exercise verification</strong> uses Apple frameworks (e.g. Vision, AVFoundation) on your device. Those camera frames are not uploaded for that feature.</p>
+    <p><strong>Face scan (looksmax report):</strong> To generate the structured scores, the app may send a JPEG to our backend. Our backend may forward that image to <strong>Anthropic</strong> solely to produce the analysis returned to the app. We do not sell face data. Our server is not intended to retain face images after each analysis completes.</p>
 
-    <h2>3. Local Storage</h2>
-    <p>Your app data is stored locally on your device using Apple’s standard storage systems. We do not maintain our own user database for your app content.</p>
+    <h2>3. Camera usage</h2>
+    <p>The camera is used for (a) optional face scans to build your report and (b) real-time exercise verification. Exercise verification does not upload your video or photos.</p>
 
-    <h2>4. Camera Usage</h2>
-    <p>The camera is used only for face scans and exercise verification. Camera data is used to detect facial movement and landmarks required for app functionality.</p>
+    <h2>4. Local storage</h2>
+    <p>Scores, settings, and task history are stored on your device using Apple’s standard storage (e.g. UserDefaults and the app sandbox). A last-scan image file may exist only in app storage until you delete the app or reset data in the app.</p>
 
-    <h2>5. Screen Time and App Blocking</h2>
-    <p>Limitless uses Apple’s Screen Time / Family Controls frameworks to let you block apps and manage usage. This information is handled by iOS and remains device-based.</p>
+    <h2>5. Screen Time and app blocking</h2>
+    <p>Limitless uses Apple’s Screen Time / Family Controls to let you block apps. That information is handled by iOS.</p>
 
-    <h2>6. Purchases and Subscriptions</h2>
-    <p>Subscriptions are processed by Apple through StoreKit. We may use RevenueCat only to manage and validate subscription status. We do not receive your payment card details.</p>
+    <h2>6. Purchases and subscriptions</h2>
+    <p>Subscriptions are processed by Apple (StoreKit). We may use RevenueCat to manage and validate subscription status. We do not receive your payment card details.</p>
 
-    <h2>7. Third Parties</h2>
-    <p>We do not use advertising SDKs or third-party tracking tools. The app may rely on Apple services and RevenueCat for subscription functionality.</p>
+    <h2>7. Third parties</h2>
+    <p>We do not use advertising SDKs or third-party ad tracking. Services we use may include: Apple (StoreKit, system frameworks), RevenueCat (subscription status), and — for <strong>face scan analysis only</strong> — our backend and Anthropic as described in Section 2. See Anthropic’s privacy policy at <a href="https://www.anthropic.com/legal/privacy" rel="noopener">anthropic.com/legal/privacy</a>.</p>
 
-    <h2>8. Data Sharing</h2>
-    <p>We do not sell or share your personal data with third parties for marketing purposes.</p>
+    <h2>8. Data sharing</h2>
+    <p>We do not sell your personal information. Face scan images are transmitted only as needed to perform the analysis you request, as described above. Subscription-related data flows through Apple (and RevenueCat as applicable).</p>
 
-    <h2>9. Children’s Privacy</h2>
+    <h2>9. Retention</h2>
+    <p><strong>On your device:</strong> App data remains until you uninstall the app or use in-app reset/delete options. <strong>On our server:</strong> We do not intend to retain face scan images after each analysis response is sent to the app.</p>
+
+    <h2>10. Children’s privacy</h2>
     <p>Limitless is not intended for children under 13. We do not knowingly collect personal information from children under 13.</p>
 
-    <h2>10. Data Deletion</h2>
-    <p>You can remove your data by uninstalling the app or using any reset/delete options available inside the app.</p>
+    <h2>11. Data deletion</h2>
+    <p>You can remove your data by uninstalling the app or using reset/delete options inside the app, where available.</p>
 
-    <h2>11. Changes</h2>
-    <p>We may update this Privacy Policy from time to time. Updates will be posted on this page.</p>
+    <h2>12. Changes</h2>
+    <p>We may update this Privacy Policy from time to time. Updates will be posted on this page with a new “Last updated” date.</p>
 
-    <h2>12. Contact</h2>
+    <h2>13. Contact</h2>
     <p>If you have privacy questions, contact us at: <a href="mailto:limitlesslockscreen@gmail.com">limitlesslockscreen@gmail.com</a></p>
   </div>
 </body>
