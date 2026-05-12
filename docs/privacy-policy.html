@@ -11,21 +11,25 @@
     ul { padding-left: 1.25rem; }
     li { margin-bottom: 0.5rem; }
     .note { font-size: 0.95rem; color: #444; border-left: 3px solid #ddd; padding-left: 12px; margin: 1rem 0; }
+    /* Zitat für App Store Review (Abschnitt 15.6) — bei Bedarf anpassen oder entfernen */
+    blockquote.review-quote { margin: 1rem 0; padding: 12px 16px; background: #f0f4ff; border-radius: 12px; border-left: 4px solid #2b6cff; }
+    blockquote.review-quote p { margin: 0; }
   </style>
 </head>
 <body>
   <div class="card">
     <h1>Privacy Policy</h1>
-    <p><strong>Last updated:</strong> April 9, 2026</p>
+    <p><strong>Last updated:</strong> May 12, 2026</p>
 
     <p>QuantView (&ldquo;we&rdquo;, &ldquo;us&rdquo;, or &ldquo;our&rdquo;) operates Limitless. This Privacy Policy explains how the Limitless app and our related infrastructure handle your information when you use the app.</p>
+    <p class="note"><strong>Face data (App Review):</strong> For Apple Guideline 2.1, see <a href="#face-data-policy-apple-2-1">Section 15 &mdash; Face Data Policy</a> and the quotable text at <a href="#face-data-quotable-text">Section 15.6</a>.</p>
 
     <h2>1. Data we process</h2>
     <p>Depending on how you use Limitless, we or your device may process the following categories:</p>
     <ul>
-      <li><strong>Profile:</strong> Name and age you enter in the app (stored on your device for app functionality).</li>
-      <li><strong>Face data (AI looksmax report):</strong> Face data means the user selfie you capture or select (JPEG). To produce the structured AI report, a compressed JPEG may be sent from the app to infrastructure operated by QuantView. That infrastructure may forward the image to <strong>Anthropic</strong> (Claude) solely to generate the analysis returned to your app. Numeric scores and text recommendations from the analysis may be stored locally on your device. An optional copy of your last scan image may be stored only inside the app sandbox so you can see it in the UI. See Sections 2, 7, and 9 for details on transmission, third parties, and retention.</li>
-      <li><strong>Exercise verification:</strong> Live camera frames for rep counting and task verification &mdash; processed on your device using Apple frameworks. Those frames are not uploaded for that feature (see Section 3).</li>
+      <li><strong>Profile:</strong> Display name you enter to continue (stored on your device). Age and gender are <strong>optional</strong> and only used for personalization if you provide them.</li>
+      <li><strong>Face data (AI looksmax report):</strong> Face data means the user selfie you capture or select (JPEG). To produce the structured AI report, a compressed JPEG may be sent from the app to infrastructure operated by QuantView. That infrastructure may forward the image to <strong>Anthropic</strong> (Claude) solely to generate the analysis returned to your app. Numeric scores and text recommendations from the analysis may be stored locally on your device. An optional copy of your last scan image may be stored only inside the app sandbox so you can see it in the UI. See Sections 2, 7, 9, and <strong>15</strong> (TrueDepth/ARKit vs. cloud JPEG).</li>
+      <li><strong>Exercise verification:</strong> Live camera frames for rep counting and task verification &mdash; processed on your device using Apple frameworks. Those frames are not uploaded for that feature (see Sections 3 and 15).</li>
       <li><strong>Screen Time / blocking:</strong> Which apps you choose to block and related selections, via Apple&rsquo;s Screen Time (Family Controls). Apple&rsquo;s systems enforce and store the relevant selections according to iOS behavior.</li>
       <li><strong>Tasks and streaks:</strong> Exercise completion, unlock tasks, streaks, and related stats (stored locally on the device).</li>
       <li><strong>Subscriptions:</strong> Purchase and entitlement status via Apple (StoreKit) and, where applicable, RevenueCat. We do not receive your full payment card number from the app.</li>
@@ -41,7 +45,7 @@
     <p class="note">If the app ever calls Anthropic directly from the device (for example in development or fallback configurations), similar non-storage settings are applied where supported. Your primary production path may use our backend.</p>
 
     <h2>3. Camera usage</h2>
-    <p>The camera is used for: (a) optional face scans for the AI report, after you provide consent as described above; and (b) real-time exercise verification (on-device only, no upload of those frames for verification).</p>
+    <p>The camera is used for: (a) optional face scans for the AI report, after you provide consent as described above; (b) <strong>TrueDepth / ARKit</strong>&ndash;based guided scanning with a real-time <strong>on-device</strong> face mesh overlay and pose (see Section 15); and (c) real-time exercise verification (on-device only, no upload of those frames for verification).</p>
 
     <h2>4. Local storage on your device</h2>
     <p>Scores, settings, task history, and similar data are stored on your device using Apple&rsquo;s standard storage (e.g. UserDefaults and the app sandbox). A file for your last face scan image may exist only in app storage until you delete the app or clear relevant data in the app.</p>
@@ -55,7 +59,7 @@
     <h2>7. Third parties</h2>
     <p>We do not use advertising SDKs or third-party ad tracking in the app for profiling. Services that may receive or process data in connection with Limitless include:</p>
     <ul>
-      <li><strong>Apple:</strong> iOS, StoreKit, Screen Time / Family Controls, and on-device frameworks (e.g. Vision, AVFoundation).</li>
+      <li><strong>Apple:</strong> iOS, StoreKit, Screen Time / Family Controls, and on-device frameworks (e.g. Vision, AVFoundation, ARKit).</li>
       <li><strong>RevenueCat:</strong> Subscription status and related metadata, as applicable.</li>
       <li><strong>QuantView infrastructure:</strong> Backend services that receive face scan images only to perform the analysis you request.</li>
       <li><strong>Anthropic:</strong> Cloud AI analysis of face data (user selfie) as described in Section 2; we configure the API so content is not used for model training where applicable under Anthropic&rsquo;s API and our agreement.</li>
@@ -85,7 +89,48 @@
     <h2>14. Changes to this policy</h2>
     <p>We may update this Privacy Policy from time to time. We will post the updated policy on this page with a new &ldquo;Last updated&rdquo; date. Continued use of the app after changes may mean you accept the updated policy; if required by law, we will seek additional consent.</p>
 
-    <h2>15. Contact</h2>
+    <h2 id="face-data-policy-apple-2-1">15. Face Data Policy (Apple Guideline 2.1)</h2>
+    <p>This section describes collection, use, sharing, storage, and retention of <strong>face-related data</strong>. You may reference it in App Store Connect.</p>
+
+    <h3>15.1 What face data does the app collect?</h3>
+    <ul>
+      <li><strong>(A) Live TrueDepth / ARKit (on-device):</strong> Face pose and a real-time 3D mesh overlay for guided scanning. This runs on your device. We do <strong>not</strong> upload a continuous stream of face anchors, depth data, or mesh vertices to our servers.</li>
+      <li><strong>(B) Optional JPEG(s) for AI report:</strong> If you grant in-app consent, still images may be sent to QuantView infrastructure and to Anthropic as in Section 2.</li>
+    </ul>
+    <p>We do not use Apple&rsquo;s Face ID authentication templates. We do not use ARKit to build a persistent face ID for ads.</p>
+
+    <h3>15.2 Planned uses</h3>
+    <ul>
+      <li>AR overlay and scan guidance on device.</li>
+      <li>Optional cloud AI analysis after consent.</li>
+      <li>Local storage of scores and last scan image in the app sandbox.</li>
+      <li>Exercise verification: camera on-device only; no upload for that feature (Section 3).</li>
+    </ul>
+
+    <h3>15.3 Third parties and where data is stored</h3>
+    <ul>
+      <li>Live ARKit/TrueDepth: remains on device.</li>
+      <li>With consent: HTTPS to QuantView backend; may forward JPEG to Anthropic. See Section 7 and Anthropic&rsquo;s policy.</li>
+      <li>Local: app sandbox on your iPhone.</li>
+    </ul>
+
+    <h3>15.4 Retention</h3>
+    <ul>
+      <li>Device: until uninstall or in-app deletion where available.</li>
+      <li>Our servers: face image files deleted after the response is sent (Section 9).</li>
+      <li>Anthropic: per their API and privacy policy; we apply minimal retention / no training where supported (Section 2).</li>
+      <li>Live AR session: transient device memory during the session; not logged as mesh archives on our servers.</li>
+    </ul>
+
+    <h3>15.5 Where else this is covered</h3>
+    <p>Sections <strong>1</strong>, <strong>2</strong>, <strong>3</strong>, <strong>4</strong>, <strong>7</strong>, <strong>8</strong>, <strong>9</strong>, <strong>12</strong>, and this <strong>15</strong>.</p>
+
+    <h3 id="face-data-quotable-text">15.6 Quotable text (for Apple Review)</h3>
+    <blockquote class="review-quote">
+      <p><strong>Face Data (Limitless).</strong> The app uses the TrueDepth camera and ARKit on the device to show a real-time face mesh overlay and head pose for guided face scanning. That live face-tracking data is not uploaded to our servers as a stream and is not sold. If you opt in, the app may send one or more still face images (JPEG) over HTTPS to QuantView&rsquo;s backend for an optional AI looksmax report; our backend may forward those images to Anthropic (Claude) only to generate the analysis returned to the app. Without your in-app consent, those images are not sent for cloud AI. Exercise verification uses the camera on-device only and does not upload those frames for verification. The app may store your last scan image and scores locally in the app sandbox. Server-side face images are deleted after the analysis response is sent, as described in the full Privacy Policy.</p>
+    </blockquote>
+
+    <h2>16. Contact</h2>
     <p>For privacy questions or requests, contact us at: <a href="mailto:limitlesslockscreen@gmail.com">limitlesslockscreen@gmail.com</a></p>
 
     <p class="note">This policy is provided for transparency. It is not legal advice. If you need advice for your jurisdiction (including GDPR or other laws), consult a qualified attorney.</p>
