@@ -16,7 +16,7 @@
 <body>
   <div class="card">
     <h1>Privacy Policy</h1>
-    <p><strong>Last updated:</strong> May 12, 2026</p>
+    <p><strong>Last updated:</strong> May 15, 2026</p>
 
     <p>QuantView (&ldquo;we&rdquo;, &ldquo;us&rdquo;, or &ldquo;our&rdquo;) operates LookScroll. This Privacy Policy explains how the LookScroll app and our related infrastructure handle your information when you use the app.</p>
     <p class="note"><strong>Face data (App Review):</strong> For Apple&rsquo;s Face Data questions (Guideline 2.1), see <a href="#face-data-policy-apple-2-1">Section 15 &mdash; Face Data Policy</a>, the quotable summary at <a href="#face-data-quotable-text">Section 15.6</a>, and the TrueDepth / ARKit Q&amp;A at <a href="#truedepth-apple-2-1-qa">Section 15.7</a>.</p>
@@ -25,19 +25,25 @@
     <p>Depending on how you use LookScroll, we or your device may process the following categories:</p>
     <ul>
       <li><strong>Profile:</strong> Display name you enter to continue (stored on your device). Age and gender are <strong>optional</strong> and only used for personalization in the app if you choose to provide them.</li>
-      <li><strong>Face data (AI looksmax report):</strong> Face data means the user selfie you capture or select (JPEG). To produce the structured AI report, a compressed JPEG may be sent from the app to infrastructure operated by QuantView. That infrastructure may forward the image to <strong>Anthropic</strong> (Claude) solely to generate the analysis returned to your app. Numeric scores and text recommendations from the analysis may be stored locally on your device. An optional copy of your last scan image may be stored only inside the app sandbox so you can see it in the UI. See Sections 2, 7, and 9 for details on transmission, third parties, and retention.</li>
+      <li><strong>Face data (AI looksmax report):</strong> Face data means the user selfie you capture or select (JPEG) and facial geometry derived on-device (ARKit / Apple Vision). If you tap <strong>Accept &amp; Continue</strong> in the in-app consent sheet, a compressed JPEG may be sent to infrastructure operated by QuantView, which may forward it to <strong>Anthropic</strong> (Claude) solely to generate the cloud AI report returned to your app. If you tap <strong>Decline &amp; Continue</strong>, your photo is <strong>not</strong> sent to our servers or Anthropic; the app uses on-device geometry analysis only (see Section 2). Scores and recommendations may be stored locally in the app sandbox. See Sections 2, 7, and 9.</li>
       <li><strong>Exercise verification:</strong> Live camera frames for rep counting and task verification &mdash; processed on your device using Apple frameworks. Those frames are not uploaded for that feature (see Sections 3 and 15).</li>
       <li><strong>Screen Time / blocking:</strong> Which apps you choose to block and related selections, via Apple&rsquo;s Screen Time (Family Controls). Apple&rsquo;s systems enforce and store the relevant selections according to iOS behavior.</li>
       <li><strong>Tasks and streaks:</strong> Exercise completion, unlock tasks, streaks, and related stats (stored locally on the device).</li>
       <li><strong>Subscriptions:</strong> Purchase and entitlement status via Apple (StoreKit) and, where applicable, RevenueCat. We do not receive your full payment card number from the app.</li>
+      <li><strong>Notifications (optional):</strong> After you subscribe, the app may ask once whether you want local notifications (e.g. unlock reminders). If you allow, Apple delivers alerts on your device; we do not use notifications for advertising. You can decline or turn them off in iOS Settings.</li>
       <li><strong>Support:</strong> If you email us, we receive the content you send (e.g. address, message text).</li>
     </ul>
 
-    <h2>2. Face scan: consent, AI-only report, and what is not uploaded</h2>
-    <p><strong>In-app consent (required for network AI).</strong> Before your selfie is sent for the full cloud AI face report, LookScroll shows an in-app disclosure and asks you to agree. You must tap to allow that processing. If you do not agree, the app does not send your image for that cloud AI report. You may also disable the AI face scan feature later in the app&rsquo;s settings, which stops using the network for that report (local geometry-only processing may still occur for basic on-device checks where applicable).</p>
-    <p><strong>What the full report is.</strong> The structured looksmax-style face report you see after consent is produced using cloud AI (QuantView backend and Anthropic). There is no separate &ldquo;device-only&rdquo; version of that same full AI report; the product is designed so that the complete AI report path uses the disclosure and transmission described here.</p>
+    <h2>2. Face scan: in-app consent (Accept &amp; Continue vs. Decline &amp; Continue)</h2>
+    <p><strong>In-app consent (before cloud AI).</strong> Before any selfie is sent for cloud AI processing, LookScroll shows an in-app disclosure sheet that explains what data is collected, who receives it (QuantView and Anthropic, PBC / Claude), and why. You can choose:</p>
+    <ul>
+      <li><strong>Accept &amp; Continue:</strong> You agree that your scan image (JPEG) and related data may be sent over HTTPS to QuantView&rsquo;s backend and processed by <strong>Anthropic</strong> (Claude API) to generate the full cloud AI face report shown in the app.</li>
+      <li><strong>Decline &amp; Continue:</strong> You continue using the app, but your selfie is <strong>not</strong> sent to our servers or Anthropic. LookScroll runs <strong>on-device only</strong> facial geometry analysis (Apple Vision / ARKit) to produce numeric scores and basic recommendations locally. No third-party cloud AI is used for that scan.</li>
+    </ul>
+    <p>Your choice is stored on your device. You can change it later in Settings (toggle for cloud AI face scan). Declining cloud AI does not block you from finishing onboarding or using other app features that do not require cloud face analysis.</p>
+    <p><strong>Two report paths.</strong> The <strong>cloud AI report</strong> (Accept) uses QuantView infrastructure and Anthropic as described below. The <strong>on-device report</strong> (Decline) is computed entirely on your iPhone/iPad and is not identical to the cloud-enhanced analysis, but still provides scores and guidance without transmitting your photo for cloud AI.</p>
     <p><strong>Exercise verification is separate.</strong> Rep counting and exercise verification use the camera on-device only and do not upload your video or photos for that purpose (see Section 3).</p>
-    <p><strong>Our servers.</strong> When you use the AI face report, our backend receives the JPEG only to perform the analysis and return results to the app. Face images are deleted from our servers after the analysis response is sent to your app; we do not retain face scan image files on our servers after each request completes. Processing may use memory only during the request. We do not sell your face images.</p>
+    <p><strong>Our servers.</strong> When you accept cloud AI and use the cloud face report, our backend receives the JPEG only to perform the analysis and return results to the app. Face images are deleted from our servers after the analysis response is sent to your app; we do not retain face scan image files on our servers after each request completes. Processing may use memory only during the request. We do not sell your face images.</p>
     <p><strong>Anthropic.</strong> Our backend may send the image to Anthropic&rsquo;s API so Claude can analyze it. Where Anthropic&rsquo;s API and our agreement allow, we configure requests so that your content is processed only to return the analysis to you and is <strong>not</strong> used to train Anthropic&rsquo;s models. Where the Anthropic Messages API supports it, we also configure requests so that the conversation is not stored for later retrieval (for example, using API parameters that disable storing the message, where available). Anthropic&rsquo;s own handling of inputs and outputs is governed by their policies; please read <a href="https://www.anthropic.com/legal/privacy" rel="noopener">Anthropic&rsquo;s Privacy Policy</a>. Commercial terms such as Zero Data Retention, if applicable, are contractual matters between QuantView and Anthropic.</p>
     <p class="note">If the app ever calls Anthropic directly from the device (for example in development or fallback configurations), similar non-storage settings are applied where supported. Your primary production path may use our backend.</p>
 
@@ -58,13 +64,13 @@
     <ul>
       <li><strong>Apple:</strong> iOS, StoreKit, Screen Time / Family Controls, and on-device frameworks (e.g. Vision, AVFoundation).</li>
       <li><strong>RevenueCat:</strong> Subscription status and related metadata, as applicable.</li>
-      <li><strong>QuantView infrastructure:</strong> Backend services that receive face scan images only to perform the analysis you request.</li>
+      <li><strong>QuantView infrastructure:</strong> Backend services that receive face scan images only when you choose Accept &amp; Continue and request cloud analysis.</li>
       <li><strong>Anthropic:</strong> Cloud AI analysis of face data (user selfie) as described in Section 2; we configure the API so content is not used for model training where applicable under Anthropic&rsquo;s API and our agreement.</li>
     </ul>
     <p>Anthropic&rsquo;s privacy policy: <a href="https://www.anthropic.com/legal/privacy" rel="noopener">anthropic.com/legal/privacy</a>.</p>
 
     <h2>8. Data sharing and sale of data</h2>
-    <p>We do not sell your personal information. Face scan images are transmitted only to provide the AI analysis you initiate after consent. We do not use your face scan for advertising. Subscription-related identifiers flow through Apple (and RevenueCat as applicable) under their terms.</p>
+    <p>We do not sell your personal information. Face scan images are transmitted to our backend and Anthropic only when you tap Accept &amp; Continue and request the cloud AI report. We do not use your face scan for advertising. Subscription-related identifiers flow through Apple (and RevenueCat as applicable) under their terms.</p>
 
     <h2>9. Retention</h2>
     <p><strong>On your device:</strong> App data remains until you uninstall the app or use reset/delete options inside the app, where available.</p>
@@ -78,7 +84,7 @@
     <p>LookScroll is not intended for children under 13. We do not knowingly collect personal information from children under 13.</p>
 
     <h2>12. Your choices and data deletion</h2>
-    <p>You can stop using the AI face report by declining consent when prompted or by turning off the related option in Settings (where available). You can remove data stored on your device by uninstalling the app or using reset/delete options inside the app, where available.</p>
+    <p>You can stop cloud AI face analysis by tapping <strong>Decline &amp; Continue</strong> when prompted, or by turning off the cloud AI face scan option in Settings. On-device analysis may still run when you scan without cloud consent. Notification permission is requested separately after you subscribe (not during onboarding); you can decline and change notification settings in iOS Settings or in the app. You can remove data stored on your device by uninstalling the app or using reset/delete options inside the app, where available.</p>
 
     <h2>13. International users</h2>
     <p>If you use the app from outside the country where our servers are located, your information may be processed in those locations. By using the service, you acknowledge that your data may be transferred as needed to provide the features you choose.</p>
@@ -93,14 +99,15 @@
     <p>We distinguish two categories:</p>
     <ul>
       <li><strong>(A) Live TrueDepth / ARKit face tracking (on-device only):</strong> When you use the guided face scan, the app uses Apple&rsquo;s ARKit and the TrueDepth camera, where supported, to estimate <strong>face pose</strong> (e.g. head orientation) and to render a <strong>real-time 3D face mesh overlay</strong> for visualization and guidance. This processing runs <strong>on your device</strong>. We do <strong>not</strong> continuously upload a stream of face anchors, depth maps, or mesh vertices to our servers, and we do <strong>not</strong> use this live data to create a separate biometric identity profile outside the scan session.</li>
-      <li><strong>(B) Optional still images (JPEG) for the AI looksmax report:</strong> If you complete the flow and grant the in-app consent for network AI processing, the app may capture <strong>one or more still images</strong> (typically JPEG) from the camera buffer (including frames derived from the scan) and send them to QuantView-operated infrastructure solely to generate the structured analysis shown in the app. This is <strong>optional</strong> and gated by explicit in-app consent (see Section 2).</li>
+      <li><strong>(B) Optional still images (JPEG) for the AI looksmax report:</strong> If you tap Accept &amp; Continue in the in-app consent sheet, the app may capture <strong>one or more still images</strong> (typically JPEG) from the camera buffer (including frames derived from the scan) and send them to QuantView-operated infrastructure solely to generate the structured cloud analysis shown in the app. If you tap Decline &amp; Continue, those images are not sent for cloud AI (see Section 2).</li>
     </ul>
     <p>We do <strong>not</strong> collect a separate &ldquo;Face ID&rdquo; template from Apple&rsquo;s authentication system. We do not use ARKit to derive a persistent unique face identifier for advertising.</p>
 
     <h3>15.2 All planned uses of collected face data</h3>
     <ul>
       <li><strong>Live AR overlay &amp; scan guidance:</strong> Show the wireframe / mask and prompt you to hold frontal and angled poses so a usable still capture can be taken.</li>
-      <li><strong>Optional cloud AI analysis:</strong> If you consent, still JPEG(s) are analyzed to produce numeric scores and text recommendations (the &ldquo;looksmax&rdquo;-style report) returned to the app.</li>
+      <li><strong>Optional cloud AI analysis (Accept &amp; Continue):</strong> If you consent, still JPEG(s) are sent for cloud analysis to produce the full AI report returned to the app.</li>
+      <li><strong>On-device analysis (Decline &amp; Continue):</strong> If you decline cloud AI, still image(s) and geometry are processed on-device only; JPEGs are not sent for cloud AI.</li>
       <li><strong>On-device display &amp; app features:</strong> Store analysis results and an optional last-scan image <strong>locally in the app sandbox</strong> so you can see your report and related UI (e.g. paywall preview) without re-capturing each launch.</li>
       <li><strong>Exercise verification (separate use):</strong> Camera video for exercise verification is processed <strong>on-device</strong> for rep/verification; we do not upload those frames for that purpose (see Section 3).</li>
     </ul>
@@ -108,7 +115,7 @@
     <h3>15.3 Is face data shared with third parties? Where is it stored?</h3>
     <ul>
       <li><strong>Live ARKit / TrueDepth processing:</strong> Stays on the device; not transmitted to QuantView as a live stream.</li>
-      <li><strong>Optional AI report (if you consent):</strong> JPEG data is sent over HTTPS to <strong>QuantView&rsquo;s backend</strong>, which processes it and may forward the image to <strong>Anthropic</strong> (Claude API) solely to produce the analysis returned to your app. Anthropic&rsquo;s handling is governed by their policies (<a href="https://www.anthropic.com/legal/privacy" rel="noopener">anthropic.com/legal/privacy</a>). We configure API requests, where supported, so content is not used to train Anthropic models and is not stored for longer than needed to return the response, as described in Section 2 and Section 9.</li>
+      <li><strong>Optional AI report (Accept &amp; Continue only):</strong> JPEG data is sent over HTTPS to <strong>QuantView&rsquo;s backend</strong>, which processes it and may forward the image to <strong>Anthropic</strong> (Claude API) solely to produce the analysis returned to your app. Anthropic&rsquo;s handling is governed by their policies (<a href="https://www.anthropic.com/legal/privacy" rel="noopener">anthropic.com/legal/privacy</a>). We configure API requests, where supported, so content is not used to train Anthropic models and is not stored for longer than needed to return the response, as described in Section 2 and Section 9.</li>
       <li><strong>Local storage:</strong> The app may keep your <strong>last scan image file</strong> and structured scores in the <strong>iOS app sandbox</strong> on your device until you delete the app or use in-app deletion where available.</li>
     </ul>
     <p>We do <strong>not</strong> sell face images. We do not use face scan images for third-party advertising.</p>
@@ -126,7 +133,7 @@
 
     <h3 id="face-data-quotable-text">15.6 Quotable text (Face Data &mdash; for Apple Review)</h3>
     <blockquote style="margin:1rem 0;padding:12px 16px;background:#f0f4ff;border-radius:12px;border-left:4px solid #2b6cff;">
-      <p><strong>Face Data (LookScroll).</strong> The app uses the TrueDepth camera and ARKit <em>on the device</em> to show a real-time face mesh overlay and head pose for guided face scanning. That live face-tracking data is not uploaded to our servers as a stream and is not sold. If you opt in, the app may send one or more still face images (JPEG) over HTTPS to QuantView&rsquo;s backend for an optional AI looksmax report; our backend may forward those images to Anthropic (Claude) only to generate the analysis returned to the app. Without your in-app consent, those images are not sent for cloud AI. Exercise verification uses the camera on-device only and does not upload those frames for verification. The app may store your last scan image and scores locally in the app sandbox. Server-side face images are deleted after the analysis response is sent, as described in the full Privacy Policy.</p>
+      <p><strong>Face Data (LookScroll).</strong> The app uses TrueDepth / ARKit <em>on the device</em> for live mesh overlay and head pose during guided scanning; that live stream is not uploaded. Before cloud AI, the app shows a consent sheet with <strong>Accept &amp; Continue</strong> or <strong>Decline &amp; Continue</strong>. If you accept, still JPEGs may be sent over HTTPS to QuantView&rsquo;s backend and Anthropic (Claude) for the cloud AI report. If you decline, no photo is sent for cloud AI; analysis stays on-device (Vision / ARKit geometry). Exercise verification is on-device only. Last scan image and scores may be stored in the app sandbox. Server-side face images are deleted after the cloud analysis response, as in Section 9.</p>
     </blockquote>
 
     <h3 id="truedepth-apple-2-1-qa">15.7 TrueDepth / ARKit &mdash; answers to Apple Guideline 2.1 (Information Needed)</h3>
@@ -143,35 +150,18 @@
 
     <h4>Will the data be shared with third parties? Where is it stored?</h4>
     <p><strong>Live TrueDepth / ARKit stream:</strong> Processed <strong>on-device in real time</strong>. We do <strong>not</strong> upload a continuous stream of <code>ARFaceAnchor</code> geometry, depth maps, or per-frame mesh vertices to our servers.</p>
-    <p><strong>Optional still images (JPEG) for the AI looksmax report:</strong> Only if you grant the separate in-app consent for cloud processing, the app may send <strong>one or more still JPEGs</strong> over HTTPS to infrastructure we operate so the structured report can be generated; that path may involve <strong>Anthropic (Claude)</strong> as a processor solely to return analysis to the app, as disclosed in Section 2 and Section 15.3. If you do not consent, those JPEGs are not sent for cloud AI.</p>
+    <p><strong>Optional still images (JPEG) for the AI looksmax report:</strong> Only if you tap <strong>Accept &amp; Continue</strong> in the in-app consent sheet, the app may send <strong>one or more still JPEGs</strong> over HTTPS to infrastructure we operate so the structured report can be generated; that path may involve <strong>Anthropic (Claude)</strong> as a processor solely to return analysis to the app, as disclosed in Section 2 and Section 15.3. If you tap Decline &amp; Continue, those JPEGs are not sent for cloud AI.</p>
     <p><strong>Local storage:</strong> The app may store your last scan image and numeric/text results in the <strong>iOS app sandbox</strong> for display inside the app.</p>
 
     <h4>Standalone paragraph (website / policy excerpt)</h4>
     <blockquote style="margin:1rem 0;padding:12px 16px;background:#fafafa;border-radius:12px;border-left:4px solid #555;">
-      <p><strong>TrueDepth &amp; ARKit.</strong> LookScroll uses Apple&rsquo;s ARKit face tracking on compatible iPhones to display a real-time 3D face mesh overlay, estimate head pose, and (where applicable) read ARKit blend-shape data to count facial exercises on your device. This live face-tracking data is processed locally and is not transmitted to our servers as a continuous stream. The app does not access the Face ID enrollment template. If you separately opt in to the optional cloud &ldquo;looksmax&rdquo; report, the app may transmit one or more still face images (JPEG) over HTTPS for analysis and may involve Anthropic (Claude) solely to generate the report returned to the app, as described in the full Privacy Policy. Exercise verification frames used for on-device checks are not uploaded for that verification purpose.</p>
+      <p><strong>TrueDepth &amp; ARKit.</strong> LookScroll uses Apple&rsquo;s ARKit face tracking on compatible iPhones to display a real-time 3D face mesh overlay, estimate head pose, and (where applicable) read ARKit blend-shape data to count facial exercises on your device. This live face-tracking data is processed locally and is not transmitted to our servers as a continuous stream. The app does not access the Face ID enrollment template. If you tap Accept &amp; Continue for the optional cloud &ldquo;looksmax&rdquo; report, the app may transmit one or more still face images (JPEG) over HTTPS for analysis and may involve Anthropic (Claude) solely to generate the report returned to the app, as described in the full Privacy Policy. Exercise verification frames used for on-device checks are not uploaded for that verification purpose.</p>
     </blockquote>
 
     <h2>16. Contact</h2>
     <p>For privacy questions or requests, contact us at: <a href="mailto:limitlesslockscreen@gmail.com">limitlesslockscreen@gmail.com</a></p>
 
     <p class="note">This policy is provided for transparency. It is not legal advice. If you need advice for your jurisdiction (including GDPR or other laws), consult a qualified attorney.</p>
-  </div>
+  </motion.div>
 </body>
 </html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>LookScroll Privacy Policy</title>
-  <style>
-    body { font-family: -apple-system, sans-serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.7; color: #111; background: #f7f7f8; }
-    .card { background: white; padding: 32px; border-radius: 20px; box-shadow: 0 4px 24px rgba(0,0,0,.06); }
-    h1, h2 { color: #111; }
-    ul { padding-left: 1.25rem; }
-    li { margin-bottom: 0.5rem; }
-    .note { font-size: 0.95rem; color: #444; border-left: 3px solid #ddd; padding-left: 12px; margin: 1rem 0; }
-  </style>
-</head>
-<body>
-  <motion.div class="card">
